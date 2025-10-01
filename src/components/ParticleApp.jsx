@@ -16,6 +16,7 @@ import {
   ExternalLink,
   Code,
   Github,
+  Dices,
   Star,
 } from "lucide-react";
 
@@ -68,6 +69,47 @@ const ParticleApp = () => {
   const handleParticlesInit = useCallback((info) => {
     setParticleInfo(info);
   }, []);
+
+  // Define control ranges for randomization
+  const controlRanges = {
+    particleGap: { min: 2, max: 10, step: 1 },
+    mouseForce: { min: 10, max: 100, step: 1 },
+    gravity: { min: 0.01, max: 0.2, step: 0.01 },
+    noise: { min: 0, max: 50, step: 1 },
+    clickStrength: { min: 0, max: 200, step: 1 },
+    hueRotation: { min: 0, max: 360, step: 1 }
+  };
+
+  const handleRandomize = useCallback(() => {
+    const randomConfig = { ...config };
+    
+    // Randomize numeric controls
+    Object.keys(controlRanges).forEach(key => {
+      const { min, max, step } = controlRanges[key];
+      const range = max - min;
+      const steps = Math.floor(range / step);
+      const randomStep = Math.floor(Math.random() * (steps + 1));
+      randomConfig[key] = min + (randomStep * step);
+      
+      // Round to avoid floating point precision issues
+      if (step < 1) {
+        randomConfig[key] = Math.round(randomConfig[key] * 100) / 100;
+      }
+    });
+    
+    // Randomize particle shape
+    const shapes = ['square', 'circle', 'triangle'];
+    randomConfig.particleShape = shapes[Math.floor(Math.random() * shapes.length)];
+    
+    // Randomize filter
+    const filters = ['none', 'grayscale', 'sepia', 'invert'];
+    randomConfig.filter = filters[Math.floor(Math.random() * filters.length)];
+    
+    // Randomly enable/disable vortex mode (30% chance)
+    randomConfig.vortexMode = Math.random() < 0.3;
+    
+    setConfig(randomConfig);
+  }, [config, controlRanges]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
@@ -245,6 +287,7 @@ const ParticleApp = () => {
                 onExplode={handleExplode}
                 onImageLoad={handleImageLoad}
                 onClose={() => setControlsOpen(false)}
+                onRandomize={handleRandomize}
               />
             </div>
 
@@ -275,6 +318,7 @@ const ParticleApp = () => {
                         onExplode={handleExplode}
                         onImageLoad={handleImageLoad}
                         onClose={() => setControlsOpen(false)}
+                        onRandomize={handleRandomize}
                       />
                     </div>
                   </motion.div>

@@ -9,10 +9,10 @@ import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { motion } from "framer-motion"
-import { RotateCcw, Zap, Upload, Settings, Palette, MousePointer, Code, X } from "lucide-react"
+import { RotateCcw, Zap, Upload, Settings, Palette, MousePointer, Code, X, Dices } from "lucide-react"
 import CodeSnippet from "./CodeSnippet"
 
-const ParticleControls = ({ config, onConfigChange, onReset, onExplode, onImageLoad, onClose }) => {
+const ParticleControls = ({ config, onConfigChange, onReset, onExplode, onImageLoad, onClose, onRandomize }) => {
   const handleSliderChange = (key, value) => {
     onConfigChange({ ...config, [key]: value[0] })
   }
@@ -86,15 +86,20 @@ const ParticleControls = ({ config, onConfigChange, onReset, onExplode, onImageL
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-3 gap-2">
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Button onClick={onReset} variant="outline" className="w-full bg-transparent" size="sm">
-              <RotateCcw className="h-4 w-4 mr-2" /> Reset
+              <RotateCcw className="h-4 w-4 mr-1" /> Reset
             </Button>
           </motion.div>
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Button onClick={onExplode} variant="outline" className="w-full bg-transparent" size="sm">
-              <Zap className="h-4 w-4 mr-2" /> Explode
+              <Zap className="h-4 w-4 mr-1" /> Explode
+            </Button>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <Button onClick={onRandomize} variant="outline" className="w-full bg-transparent" size="sm">
+              <Dices className="h-4 w-4 mr-1" /> Random
             </Button>
           </motion.div>
         </div>
