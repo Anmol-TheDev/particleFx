@@ -11,6 +11,14 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 
+// Assuming these components are in your project structure
+// Since I cannot create them, I'll define placeholders for compilation
+const Accordion = ({ children, ...props }) => <div {...props}>{children}</div>;
+const AccordionItem = ({ children, ...props }) => <div {...props}>{children}</div>;
+const AccordionTrigger = ({ children, ...props }) => <div {...props}><h3>{children}</h3></div>;
+const AccordionContent = ({ children, ...props }) => <div {...props}>{children}</div>;
+
+
 const Docs = () => {
   const [copiedStates, setCopiedStates] = useState({});
 
@@ -25,7 +33,7 @@ const Docs = () => {
   const configOptions = [
     {
       option: "preset",
-      type: "'fireworks' | 'snow' | 'galaxy' | 'rain'",
+      type: "'fireworks' | 'snow' | 'galaxy' | 'rain' | 'confetti' | 'sparkle' | 'aurora'",
       default: "undefined",
       description: "Applies a pre-configured set of options",
     },
@@ -161,6 +169,93 @@ const Docs = () => {
     "Improved Mouse Detection: Replaced mouseout with mouseleave for more reliable event handling"
   ];
 
+  const implementationGuide = {
+    step1: `export const presets = {
+  fireworks: {
+    mouseForce: 50,
+    gravity: 0.1,
+    noise: 15,
+    // ... other options
+  },
+  snow: {
+    // ... options
+  },
+  galaxy: {
+    // ... options
+  },
+  rain: {
+    // ... options
+  }
+};`,
+    step2: `export const presets = {
+  // ... existing presets (fireworks, snow, galaxy, rain)
+  
+  // NEW: Confetti preset
+  confetti: {
+    mouseForce: 25,
+    gravity: 0.15,
+    noise: 20,
+    clickStrength: 150,
+    hueRotation: 45,
+    filter: 'none',
+    particleShape: 'square',
+    particleGap: 5,
+    vortexMode: false
+  },
+  
+  // NEW: Sparkle preset
+  sparkle: {
+    mouseForce: 10,
+    gravity: 0.03,
+    noise: 25,
+    clickStrength: 80,
+    hueRotation: 120,
+    filter: 'none',
+    particleShape: 'circle',
+    particleGap: 6,
+    vortexMode: false
+  },
+  
+  // NEW: Aurora preset (Northern Lights)
+  aurora: {
+    mouseForce: 15,
+    gravity: 0.05,
+    noise: 18,
+    clickStrength: 60,
+    hueRotation: 180,
+    filter: 'none',
+    particleShape: 'circle',
+    particleGap: 3,
+    vortexMode: false
+  }
+};`,
+    step3: `// Find this line:
+export type PresetName = 'fireworks' | 'snow' | 'galaxy' | 'rain';
+
+// Change it to:
+export type PresetName = 'fireworks' | 'snow' | 'galaxy' | 'rain' | 'confetti' | 'sparkle' | 'aurora';`,
+    step4: `// Use the new presets
+const particleCanvas = createParticleCanvas(container, {
+  preset: 'confetti'  // or 'sparkle' or 'aurora'
+});`,
+    step5_confetti: `createParticleCanvas(container, {
+  preset: 'confetti',
+  width: '100%',
+  height: '500px'
+});`,
+    step5_sparkle: `createParticleCanvas(container, {
+  preset: 'sparkle',
+  width: '100%',
+  height: '400px'
+});`,
+    step5_aurora: `createParticleCanvas(container, {
+  preset: 'aurora',
+  width: '100vw',
+  height: '100vh'
+});`
+  };
+
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="container max-w-5xl mx-auto py-12 px-6">
@@ -197,7 +292,7 @@ const Docs = () => {
                   Breaking Changes:
                 </p>
                 <p className="text-sm text-amber-700 dark:text-amber-300">
-                  The <code className="bg-amber-100 dark:bg-amber-800 px-1 rounded">unit</code> option has been removed. 
+                  The <code className="bg-amber-100 dark:bg-amber-800 px-1 rounded">unit</code> option has been removed.
                   Instead, specify units directly in the width and height properties (e.g., <code className="bg-amber-100 dark:bg-amber-800 px-1 rounded">width: '100vw'</code>).
                 </p>
               </div>
@@ -625,7 +720,7 @@ export default ParticleComponent;`}</code>
         </section>
 
         {/* Browser Support */}
-        <section>
+        <section className="mb-12">
           <div className="flex items-center gap-2 mb-6">
             <h2 className="text-3xl font-semibold">Browser Support</h2>
           </div>
@@ -652,6 +747,130 @@ export default ParticleComponent;`}</code>
             </CardContent>
           </Card>
         </section>
+        
+        {/* NEW SECTION: Implementation Guide */}
+        <section>
+            <div className="flex items-center gap-2 mb-6">
+                <h2 className="text-3xl font-semibold">Implementation Guide for New Presets</h2>
+            </div>
+            <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                    <AccordionTrigger>Step 1: Locate and Edit the Presets File</AccordionTrigger>
+                    <AccordionContent>
+                        <p className="mb-4 text-sm text-muted-foreground">
+                            Look for a file like <code>src/presets.js</code>, <code>src/config.js</code>, or the presets definition in <code>src/index.js</code>. The file probably looks something like this:
+                        </p>
+                        <div className="relative">
+                            <Button variant="ghost" size="sm" onClick={() => copyToClipboard(implementationGuide.step1, "guide1")} className="absolute top-2 right-2 h-8 w-8 p-0 bg-background/80 hover:bg-background border border-border/50 hover:border-border z-10">
+                                {copiedStates.guide1 ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                            </Button>
+                            <pre className="bg-muted p-4 rounded-md overflow-x-auto text-sm pr-12"><code>{implementationGuide.step1}</code></pre>
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                    <AccordionTrigger>Step 2: Add Three New Presets</AccordionTrigger>
+                    <AccordionContent>
+                         <p className="mb-4 text-sm text-muted-foreground">Add these THREE new presets to the presets object:</p>
+                        <div className="relative">
+                            <Button variant="ghost" size="sm" onClick={() => copyToClipboard(implementationGuide.step2, "guide2")} className="absolute top-2 right-2 h-8 w-8 p-0 bg-background/80 hover:bg-background border border-border/50 hover:border-border z-10">
+                                {copiedStates.guide2 ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                            </Button>
+                            <pre className="bg-muted p-4 rounded-md overflow-x-auto text-sm pr-12"><code>{implementationGuide.step2}</code></pre>
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+                 <AccordionItem value="item-3">
+                    <AccordionTrigger>Step 3: Update TypeScript Definitions (if exists)</AccordionTrigger>
+                    <AccordionContent>
+                        <p className="mb-4 text-sm text-muted-foreground">Look for a file like <code>index.d.ts</code>, <code>types.d.ts</code>, or <code>src/types.ts</code>. Find the preset type definition and add the new presets:</p>
+                        <div className="relative">
+                            <Button variant="ghost" size="sm" onClick={() => copyToClipboard(implementationGuide.step3, "guide3")} className="absolute top-2 right-2 h-8 w-8 p-0 bg-background/80 hover:bg-background border border-border/50 hover:border-border z-10">
+                                {copiedStates.guide3 ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                            </Button>
+                            <pre className="bg-muted p-4 rounded-md overflow-x-auto text-sm pr-12"><code>{implementationGuide.step3}</code></pre>
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-4">
+                    <AccordionTrigger>Step 4: Update README.md</AccordionTrigger>
+                    <AccordionContent>
+                        <p className="mb-4 text-sm text-muted-foreground">Find the "Available Presets" section in README.md and update it:</p>
+                        <pre className="bg-muted p-4 rounded-md overflow-x-auto text-sm">
+                            <code>
+                                {`## Available Presets\n\nChoose from these stunning visual presets:\n\n- fireworks - Explosive, colorful particles\n- snow - Gentle falling snowflakes\n- galaxy - Cosmic, swirling effect\n- rain - Falling rain droplets\n- confetti - 🎉 Celebratory confetti particles\n- sparkle - ✨ Twinkling sparkle effect\n- aurora - 🌌 Northern lights waves`}
+                            </code>
+                        </pre>
+                         <p className="my-4 text-sm text-muted-foreground">Example Usage:</p>
+                         <div className="relative">
+                            <Button variant="ghost" size="sm" onClick={() => copyToClipboard(implementationGuide.step4, "guide4")} className="absolute top-2 right-2 h-8 w-8 p-0 bg-background/80 hover:bg-background border border-border/50 hover:border-border z-10">
+                                {copiedStates.guide4 ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                            </Button>
+                            <pre className="bg-muted p-4 rounded-md overflow-x-auto text-sm pr-12"><code>{implementationGuide.step4}</code></pre>
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+                 <AccordionItem value="item-5">
+                    <AccordionTrigger>Step 5: Add Examples to README</AccordionTrigger>
+                    <AccordionContent className="space-y-4">
+                         <p className="text-sm text-muted-foreground">Add a new section with usage examples:</p>
+                         <div>
+                            <p className="text-sm font-semibold">Confetti Effect - Perfect for celebrations:</p>
+                            <div className="relative mt-2">
+                                <Button variant="ghost" size="sm" onClick={() => copyToClipboard(implementationGuide.step5_confetti, "guide5c")} className="absolute top-2 right-2 h-8 w-8 p-0 bg-background/80 hover:bg-background border border-border/50 hover:border-border z-10">
+                                    {copiedStates.guide5c ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                                </Button>
+                                <pre className="bg-muted p-4 rounded-md overflow-x-auto text-sm pr-12"><code>{implementationGuide.step5_confetti}</code></pre>
+                            </div>
+                         </div>
+                         <div>
+                            <p className="text-sm font-semibold">Sparkle Effect - Magical twinkling:</p>
+                             <div className="relative mt-2">
+                                <Button variant="ghost" size="sm" onClick={() => copyToClipboard(implementationGuide.step5_sparkle, "guide5s")} className="absolute top-2 right-2 h-8 w-8 p-0 bg-background/80 hover:bg-background border border-border/50 hover:border-border z-10">
+                                    {copiedStates.guide5s ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                                </Button>
+                                <pre className="bg-muted p-4 rounded-md overflow-x-auto text-sm pr-12"><code>{implementationGuide.step5_sparkle}</code></pre>
+                            </div>
+                         </div>
+                          <div>
+                            <p className="text-sm font-semibold">Aurora Effect - Northern lights simulation:</p>
+                             <div className="relative mt-2">
+                                <Button variant="ghost" size="sm" onClick={() => copyToClipboard(implementationGuide.step5_aurora, "guide5a")} className="absolute top-2 right-2 h-8 w-8 p-0 bg-background/80 hover:bg-background border border-border/50 hover:border-border z-10">
+                                    {copiedStates.guide5a ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                                </Button>
+                                <pre className="bg-muted p-4 rounded-md overflow-x-auto text-sm pr-12"><code>{implementationGuide.step5_aurora}</code></pre>
+                            </div>
+                         </div>
+                    </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-6">
+                    <AccordionTrigger>Files You Need to Modify</AccordionTrigger>
+                     <AccordionContent>
+                        <ul className="list-disc pl-5 space-y-2 text-sm">
+                            <li>✅ <code>src/presets.js</code> (or wherever presets are defined) - Add 3 new presets</li>
+                            <li>✅ <code>index.d.ts</code> or <code>src/types.ts</code> (if exists) - Update TypeScript types</li>
+                            <li>✅ <code>README.md</code> - Document the new presets with examples</li>
+                        </ul>
+                     </AccordionContent>
+                </AccordionItem>
+                 <AccordionItem value="item-7">
+                    <AccordionTrigger>Testing Checklist</AccordionTrigger>
+                     <AccordionContent>
+                        <ul className="list-disc pl-5 space-y-2 text-sm">
+                            <li>[ ] Run <code>npm run dev</code> successfully</li>
+                            <li>[ ] Test each new preset in the browser</li>
+                            <li>[ ] Try <code>explodeParticles()</code> with each preset</li>
+                            <li>[ ] Try <code>resetParticles()</code> with each preset</li>
+                            <li>[ ] Check mobile responsiveness (Chrome DevTools)</li>
+                            <li>[ ] Run <code>npm run build</code> successfully</li>
+                            <li>[ ] No console errors in browser</li>
+                        </ul>
+                     </AccordionContent>
+                </AccordionItem>
+            </Accordion>
+        </section>
+
+
       </div>
     </div>
   );

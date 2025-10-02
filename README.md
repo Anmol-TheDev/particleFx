@@ -30,6 +30,18 @@ A lightweight, framework-agnostic JavaScript library that renders interactive pa
 npm install package-particlefx
 ```
 
+## Available Presets
+
+Choose from these stunning visual styles to get started quickly:
+
+fireworks - Explosive, colorful particles.
+snow - Gentle, falling snowflakes. ❄️
+galaxy - A cosmic, swirling effect.
+rain - Simulates falling rain droplets. 💧
+confetti - Celebratory confetti particles. 🎉
+sparkle - A magical, twinkling sparkle effect. ✨
+aurora - Waving patterns like the Northern Lights. 🌌
+
 ## Quick Start
 
 ### Vanilla JavaScript
@@ -38,7 +50,7 @@ import { createParticleCanvas } from 'package-particlefx';
 
 const container = document.getElementById('my-container');
 const particleCanvas = createParticleCanvas(container, {
-  preset: 'fireworks', // Use a preset for a quick start
+  preset: 'confetti', // Use a preset for a quick start
   width: '100vw',      // Responsive width
   height: '100vh',     // Responsive height
 });
@@ -58,7 +70,7 @@ function ParticleComponent() {
   const containerRef = useRef(null);
   const particleCanvasRef = useRef(null);
   const [config, setConfig] = useState({
-    preset: 'galaxy',
+    preset: 'aurora',
     width: '100%',
     height: '400px',
   });
@@ -91,8 +103,8 @@ function ParticleComponent() {
       <button onClick={handleExplode}>Explode</button>
       <button onClick={handleReset}>Reset</button>
       <button onClick={handleDownload}>Download</button>
-      <button onClick={() => setConfig(prev => ({ ...prev, preset: 'snow' }))}>
-        Change to Snow
+      <button onClick={() => setConfig(prev => ({ ...prev, preset: 'sparkle' }))}>
+        Change to Sparkle
       </button>
     </div>
   );
@@ -105,7 +117,7 @@ export default ParticleComponent;
 
 | Option | Type | Default | Description |
 |---|---|---|---|
-| `preset` | 'fireworks' \| 'snow' \| 'galaxy' \| 'rain' | `undefined` | Applies a pre-configured set of options. |
+| `preset` | 'fireworks' \| 'snow' \| 'galaxy' \| 'rain' \| 'confetti' \| 'sparkle' \| 'aurora' |  `undefined` | Applies a pre-configured set of options. |
 | `imageSrc` | string | Built-in gradient | Path or data URL of the image to convert. |
 | `width` | number \| string | 400 | Canvas width in pixels or a string with units (e.g., `'100vw'`). |
 | `height` | number \| string | 400 | Canvas height in pixels or a string with units (e.g., `'100vh'`). |
