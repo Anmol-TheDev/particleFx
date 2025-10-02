@@ -103,6 +103,13 @@ const ParticleApp = () => {
     gravityFactor: 0.92,
   });
 
+  const [perfStats, setPerfStats] = useState({ 
+    fps: 0, 
+    particleCount: 0, 
+    memoryMB: null, 
+    warnings: [], 
+  });
+
   // Handlers
   const handleConfigChange = useCallback((newConfig) => {
     setConfig(newConfig);
@@ -437,6 +444,23 @@ const ParticleApp = () => {
                     </motion.div>
                   </div>
 
+                   {perfStats && (
+                    <div className="mt-2 px-3 py-2 rounded bg-black/60 text-white text-xs font-mono flex items-center gap-4">
+                      <span>FPS: {perfStats.fps}</span>
+                      <span className="opacity-50">•</span>
+                      <span>Particles: {perfStats.particleCount}</span>
+                      <span className="opacity-50">•</span>
+                      <span>Memory: {perfStats.memoryMB ?? "n/a"} MB</span>
+                      {perfStats.warnings.length > 0 && (
+                        <>
+                          <span className="opacity-50">•</span>
+                          <span className="text-red-300">{perfStats.warnings.join(", ")}</span>
+                        </>
+                      )}
+                    </div>
+                  )}
+
+
                   <motion.div 
                     className="flex justify-center relative"
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -450,6 +474,7 @@ const ParticleApp = () => {
                         resetTrigger={resetTrigger}
                         explodeTrigger={explodeTrigger}
                         onParticlesInit={handleParticlesInit}
+                        onPerfStats={setPerfStats}
                       />
                       {/* Canvas Border Glow */}
                       <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-lg blur-xl -z-10 opacity-50" />

@@ -9,6 +9,7 @@ const ParticleCanvas = ({
   imageUrl,
   resetTrigger,
   explodeTrigger,
+  onPerfStats,
 }) => {
   const containerRef = useRef(null);
   const particleCanvasRef = useRef(null);
@@ -26,6 +27,7 @@ const lastFrameRef = useRef(performance.now());
 const frameCountRef = useRef(0);
 
   useEffect(() => {
+    let animationFrameId;
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
         if (entry.contentRect.width > 0 && entry.contentRect.height > 0) {
@@ -49,7 +51,6 @@ const frameCountRef = useRef(0);
             isMounted.current = true;
             
             // --- Performance tracking loop ---
-            let animationFrameId;
 
             const updateStats = () => {
               const now = performance.now();
@@ -73,7 +74,16 @@ const frameCountRef = useRef(0);
                 if (particleCount > 2000) warnings.push("High particle count");
                 if (memoryMB !== null && memoryMB > 400) warnings.push("High memory");
 
-                setPerfStats({ fps, particleCount, memoryMB, warnings });
+                const stats = { fps, particleCount, memoryMB, warnings };
+                setPerfStats(stats);
+                // send the stats up to parent so it can render them externally
+                if (onPerfStats) {
+                  try {
+                    onPerfStats(stats);
+                  } catch (e) {
+                    console.warn("onPerfStats error", e);
+                  }
+                }
               }
 
               animationFrameId = requestAnimationFrame(updateStats);
@@ -131,29 +141,6 @@ const frameCountRef = useRef(0);
       transition={{ duration: 0.5 }}
       className="relative overflow-hidden rounded-xl bg-gradient-to-br from-card/50 to-muted/20 p-2"
     >
-      {/* Performance overlay */}
-      <div style={{
-        position: 'absolute',
-        top: 10,
-        left: 10,
-        background: 'rgba(0,0,0,0.6)',
-        color: '#fff',
-        padding: '6px 10px',
-        borderRadius: '6px',
-        fontFamily: 'monospace',
-        fontSize: '12px',
-        zIndex: 9999,
-      }}>
-        <div>FPS: {perfStats.fps}</div>
-        <div>Particles: {perfStats.particleCount}</div>
-        <div>Memory: {perfStats.memoryMB ?? 'n/a'} MB</div>
-        {perfStats.warnings.length > 0 && (
-          <div style={{ marginTop: 4, color: '#ffb3b3', fontSize: '11px' }}>
-            {perfStats.warnings.join(', ')}
-          </div>
-        )}
-      </div>
-
       <div
         ref={containerRef}
         className="relative border-2 border-primary/30 rounded-lg overflow-hidden bg-card/30 backdrop-blur-sm w-[75dvw] sm:w-[50vw] md:w-[30vw] h-full"
