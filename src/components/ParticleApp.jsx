@@ -140,14 +140,14 @@ const ParticleApp = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
-      <div className="container mx-auto px-4 py-8">
-        {/* Hero Section - Enhanced */}
+    <div className="bg-gradient-to-br from-background via-background to-primary/5">
+      <div className="container max-w-6xl mx-auto py-16 px-6">
+        {/* Hero Section */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative text-center space-y-8 mb-16 pt-16"
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20"
         >
           {/* Advanced Animated Background */}
           <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -182,7 +182,7 @@ const ParticleApp = () => {
             </svg>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y- py-3 ">
             {/* Logo and Title - Redesigned with Enhanced Animation */}
             <motion.div
               initial={{ scale: 0.8, opacity: 0, rotateX: -15 }}
@@ -190,7 +190,7 @@ const ParticleApp = () => {
               transition={{ duration: 0.8, delay: 0.2, type: "spring", bounce: 0.4 }}
               className="relative"
             >
-              <div className="flex items-center justify-center space-x-4 mb-4 pt-8">
+              <div className="flex items-center justify-center space-x-4 mb-8">
                 <motion.div 
                   className="relative group p-4"
                   animate={{ 
@@ -253,7 +253,7 @@ const ParticleApp = () => {
                 </motion.div>
               </div>
               
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-2 relative">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black relative mb-5">
                 <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient bg-300% drop-shadow-2xl">
                   ParticleFX
                 </span>
@@ -266,7 +266,7 @@ const ParticleApp = () => {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="text-lg md:text-xl text-muted-foreground font-mono tracking-wider"
               >
-                <span className="bg-gradient-to-r from-muted-foreground to-primary/80 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-muted-foreground to-primary/80 bg-clip-text text-transparent mb-5">
                   package-particlefx playground
                 </span>
               </motion.p>
@@ -277,7 +277,7 @@ const ParticleApp = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.5 }}
-              className="max-w-4xl mx-auto"
+              className="max-w-4xl mx-auto mt-4"
             >
               <p className="text-lg md:text-2xl text-muted-foreground leading-relaxed">
                 Interactive playground for{" "}
@@ -307,7 +307,7 @@ const ParticleApp = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className="flex flex-wrap items-center justify-center gap-4 max-w-4xl mx-auto"
+              className="flex flex-wrap items-center justify-center gap-4 max-w-4xl mx-auto m-7"
             >
               <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
                 <Button asChild size="lg" className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300">
@@ -390,7 +390,7 @@ const ParticleApp = () => {
         </motion.div>
 
         {/* Enhanced Main Playground Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-16">
           {/* Canvas Section - Enhanced */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -512,7 +512,7 @@ const ParticleApp = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, type: "spring", bounce: 0.3 }}
           viewport={{ once: true }}
-          className="mt-20"
+          className="mt-12"
         >
           <motion.div
             whileHover={{ scale: 1.02, rotateX: 1 }}

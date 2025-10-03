@@ -36,7 +36,7 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="relative border-t border-primary/20 bg-gradient-to-b from-background to-background/90 backdrop-blur-xl mt-20">
+    <footer className="relative border-t border-primary/20 bg-gradient-to-b from-background to-background/90 backdrop-blur-xl mt-20 z-50">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
       <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
