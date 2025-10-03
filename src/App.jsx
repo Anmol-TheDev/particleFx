@@ -9,16 +9,17 @@ const Docs = lazy(() => import("./components/Docs"))
 export default function App() {
   return (
     <div className="flex flex-col min-h-screen">
-  <Navbar />
-  <main className="flex-grow">
-    <Routes>
-      <Route path="/" element={<ParticleApp />} />
-      <Route path="/features" element={<Features />} />
-      <Route path="/docs" element={<Docs />} />
-    </Routes>
-  </main>
-  <Footer />
-</div>
-
+      <Navbar />
+      <main className="flex-grow">
+        <Suspense fallback={<div className="text-center py-10">Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<ParticleApp />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/docs" element={<Docs />} />
+          </Routes>
+        </Suspense>
+      </main>
+      <Footer />
+    </div>
   )
 }
