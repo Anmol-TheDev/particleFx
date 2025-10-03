@@ -1,0 +1,36 @@
+# .coderabbit.yml
+# CodeRabbit Configuration Template
+# Complete reference: https://docs.coderabbit.ai/reference/configuration
+
+language: "en-US"
+
+reviews:
+  ignored_branches:
+    - "dev/test"
+  ignored_titles:
+    - "WIP"
+  path_filters:
+    - "!**/*.md"
+    - "!**/docs/**"
+    - "src/**/*.js"
+    - "src/**/*.jsx"
+
+  file_path_instructions:
+    - path: "src/**/*.{js,jsx,ts,tsx}"
+      instructions: |
+        - Components should be functional components using javascript.
+        - Use appropriate hooks for state management.
+        - Implement proper loading states for async operations.
+        - Follow the container/presentation pattern where applicable.
+        - Use Tailwind CSS classes consistently.
+        - Handle client-side errors gracefully with user feedback.
+
+general_guidelines: |
+  - Follow javascript best practices .
+  - Use consistent error handling patterns.
+  - Implement proper authentication checks.
+  - Keep components and functions small and focused.
+  - Use meaningful variable and function names.
+  - Add comments for complex business logic.
+  - Ensure proper error messages for user feedback.
+  - Use environment variables for sensitive data.

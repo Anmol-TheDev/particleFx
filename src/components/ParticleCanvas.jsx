@@ -1,5 +1,5 @@
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { createParticleCanvas } from "package-particlefx";
 
@@ -9,13 +9,25 @@ const ParticleCanvas = ({
   imageUrl,
   resetTrigger,
   explodeTrigger,
+  onPerfStats,
 }) => {
   const containerRef = useRef(null);
   const particleCanvasRef = useRef(null);
 
   const isMounted = useRef(false);
 
+  const [perfStats, setPerfStats] = useState({
+  fps: 0,
+  particleCount: 0,
+  memoryMB: null,
+  warnings: [],
+});
+
+const lastFrameRef = useRef(performance.now());
+const frameCountRef = useRef(0);
+
   useEffect(() => {
+    let animationFrameId;
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
         if (entry.contentRect.width > 0 && entry.contentRect.height > 0) {
@@ -37,6 +49,50 @@ const ParticleCanvas = ({
               });
             }
             isMounted.current = true;
+            
+            // --- Performance tracking loop ---
+
+            const updateStats = () => {
+              const now = performance.now();
+              frameCountRef.current += 1;
+              const delta = now - lastFrameRef.current;
+
+              if (delta >= 1000) {
+                const fps = Math.round((frameCountRef.current * 1000) / delta);
+                frameCountRef.current = 0;
+                lastFrameRef.current = now;
+
+                const particleCount = particleCanvasRef.current?.getParticleCount() || 0;
+
+                const memoryMB =
+                  performance?.memory?.usedJSHeapSize
+                    ? Math.round((performance.memory.usedJSHeapSize / 1048576) * 10) / 10
+                    : null;
+
+                const warnings = [];
+                if (fps < 30) warnings.push("Low FPS");
+                if (particleCount > 10000) warnings.push("High particle count");
+                if (memoryMB !== null && memoryMB > 400) warnings.push("High memory");
+
+                const stats = { fps, particleCount, memoryMB, warnings };
+                setPerfStats(stats);
+                // send the stats up to parent so it can render them externally
+                if (onPerfStats) {
+                  try {
+                    onPerfStats(stats);
+                  } catch (e) {
+                    console.warn("onPerfStats error", e);
+                  }
+                }
+              }
+
+              animationFrameId = requestAnimationFrame(updateStats);
+            };
+
+            animationFrameId = requestAnimationFrame(updateStats);
+
+            
+            
           }
         }
       }
@@ -49,6 +105,7 @@ const ParticleCanvas = ({
     return () => {
       observer.disconnect();
       particleCanvasRef.current?.destroy();
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
