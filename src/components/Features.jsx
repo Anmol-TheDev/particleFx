@@ -132,14 +132,14 @@ const Features = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
-      <div className="container mx-auto px-4 py-16">
+    <div className="bg-gradient-to-br from-background via-background to-primary/5">
+      <div className="container max-w-6xl mx-auto py-14 px-6">
         {/* Enhanced Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="relative text-center mb-20 pt-16"
+          className="text-center mb-20"
         >
           {/* Background Effects */}
           <div className="absolute inset-0 -z-10">
@@ -151,7 +151,7 @@ const Features = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2, type: "spring", bounce: 0.4 }}
-            className="flex items-center justify-center mb-8 pt-8"
+            className="flex items-center justify-center mb-8"
           >
             <div className="relative group p-6">
               <Sparkles className="h-20 w-20 text-primary drop-shadow-xl group-hover:scale-110 transition-transform duration-300" />
@@ -164,19 +164,19 @@ const Features = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-5xl md:text-7xl font-black mb-6 relative"
+            className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 relative"
           >
             <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient bg-300% drop-shadow-2xl">
               Powerful Features
             </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-3xl -z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-2xl -z-10" />
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-10 leading-relaxed"
+            className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto m-10 leading-relaxed"
           >
             Discover the powerful capabilities of our interactive particle effects library.
             <br />
@@ -187,7 +187,7 @@ const Features = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex flex-wrap justify-center gap-6"
+            className="flex flex-wrap justify-center gap-6 m-15"
           >
             <motion.div whileHover={{ scale: 1.05, y: -3 }} whileTap={{ scale: 0.95 }}>
               <Button asChild size="lg" className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg hover:shadow-xl px-8 py-4">
@@ -221,7 +221,7 @@ const Features = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-20"
+          className="mb-20 mt-40"
         >
           <h2 className="text-3xl font-bold text-center mb-12">Core Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
