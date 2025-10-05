@@ -177,8 +177,8 @@ const Docs = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
-      <div className="container max-w-6xl mx-auto py-16 px-6">
+    <div className="bg-gradient-to-br from-background via-background to-primary/5">
+      <div className="container max-w-6xl mx-auto py-14 px-6">
         {/* Enhanced Header */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -195,13 +195,13 @@ const Docs = () => {
             </div>
           </div>
           
-          <h1 className="text-5xl md:text-6xl font-black mb-6">
+          <h1 className="text-5xl md:text-6xl lg:text-8xl font-black mb-6">
             <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               Documentation
             </span>
           </h1>
           
-          <div className="max-w-4xl mx-auto mb-8">
+          <div className="max-w-4xl mx-auto m-10">
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-6">
               Complete guide to <span className="text-primary font-bold">package-particlefx</span> - A lightweight, framework-agnostic JavaScript library for interactive particle effects.
             </p>

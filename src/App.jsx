@@ -2,19 +2,22 @@ import { Routes, Route } from 'react-router-dom'
 import ParticleApp from './components/ParticleApp'
 import Navbar from './components/ui/Navbar'
 import Footer from './components/ui/Footer'
-import Features from './components/Features'
-import Docs from './components/Docs'
+import { lazy, Suspense } from "react"
+const Features = lazy(() => import("./components/Features"))
+const Docs = lazy(() => import("./components/Docs"))
 
 export default function App() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<ParticleApp />} />
-          <Route path="/features" element={<Features />} />
-          <Route path="/docs" element={<Docs />} />
-        </Routes>
+      <main className="flex-grow">
+        <Suspense fallback={<div className="text-center py-10">Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<ParticleApp />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/docs" element={<Docs />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </div>

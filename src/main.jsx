@@ -1,17 +1,13 @@
-import React from 'react'
-import { ViteReactSSG } from 'vite-react-ssg'
-import { routes } from './routes'
-import App from './App'
-import './index.css'
+import React from "react"
+import ReactDOM from "react-dom/client"
+import { BrowserRouter } from "react-router-dom"
+import App from "./App"
+import "./index.css"
 
-// ViteReactSSG expects a *function* that returns the app tree
-export const createRoot = ViteReactSSG(
-  { routes, basename: '/' },
-  ({ isClient }) => {
-    // optional: do client-only setup here
-  },
-  ({ url, isClient }) => (
-    // Minimal wrapper that mimics your old BrowserRouter setup
-    <App />   // App already contains <Routes>, <Navbar>, <Footer>
-  )
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
 )
