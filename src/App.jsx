@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import ParticleApp from './components/ParticleApp'
 import Navbar from './components/ui/Navbar'
 import Footer from './components/ui/Footer'
+import Footer2 from './components/ui/Footer2'
 import Features from './components/Features'
 import Docs from './components/Docs'
 
@@ -17,6 +18,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <Footer2 />
     </div>
   )
 }
